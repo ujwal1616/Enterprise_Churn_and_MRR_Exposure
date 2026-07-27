@@ -1,80 +1,135 @@
 # 📊 Customer Churn & MRR Risk Analytics Dashboard
 
-
-> A data analytics project built using **Google BigQuery (SQL)** and **Power BI** to analyze customer churn, measure lost Monthly Recurring Revenue (MRR), and identify high-risk subscriber segments.
-
----
-
-## 📸 Executive Dashboard Preview
-
-[Customer Churn & Revenue Risk Dashboard]
+A data analytics project built using **Google BigQuery (SQL)** and **Power BI** to analyze customer churn, quantify Monthly Recurring Revenue (MRR) loss, and identify customer segments that contribute the most to revenue risk.
 
 ---
 
-## 📈 Key Metrics & Business Impact (By the Numbers)
+## Dashboard Preview
 
-### 💼 Business Loss & Risk Exposure
-* **$139.13K Total Lost MRR:** Evaluated across **2,000 churned accounts** out of a **7,043 total customer base**.
-* **26.54% Overall Churn Rate:** Measured and isolated across customer contract and payment cohorts.
-* **$84K Financial Risk Concentration:** Proved that **60.4% of all lost revenue** came directly from the **High Financial Risk segment** ($\ge \$80$/month on month-to-month plans).
-* **>50% Peak Segment Churn:** Uncovered that Month-to-Month subscribers paying via **Electronic Check** churned at **more than double** the baseline rate.
-
-### 🛠️ Data Pipeline & Technical Complexity
-* **7,000+ Raw Rows Processed:** Transformed and queried efficiently in **Google BigQuery**.
-* **3 Custom SQL Logic Fields:** Engineered binary status flags (`is_churned`), row-level lost revenue (`mrr_lost`), and a 3-tier financial risk classification system.
-* **4 Core DAX Measures:** Developed custom metrics for dynamic churn percentage, total MRR loss, account counts, and automated DAX dynamic narrative text.
-* **2 Interactive Slicers & 4 Visual Cards:** Integrated full cross-filtering capabilities across contract types, payment methods, and risk levels.
+![Customer Churn Dashboard](images/revenueriskdashboard.png)
 
 ---
 
-## 📌 Project Overview & Why I Built This
+# Project Overview
 
-When analyzing churn, looking at customer counts alone (*e.g., "we lost 26% of our users"*) misses critical financial context. A customer paying **$20/month** leaving has a vastly different impact than a high-value account paying **$110/month** leaving.
+Many churn dashboards focus only on the number of customers leaving. While that is useful, it doesn't always show the real business impact.
 
-The goal of this project was to shift from simple volume-based churn tracking to a **revenue-first analytics approach**. By combining customer spend with contract types and payment channels, this project answers:
-1. **Revenue Impact:** Exactly how much Monthly Recurring Revenue (MRR) is being lost?
-2. **Cohort Drivers:** Which specific customer cohorts drive the majority of that financial loss?
-3. **Actionable Outreach:** How can Customer Success teams prioritize outreach to high-spend accounts before they churn?
+For example, losing one customer paying **$110/month** has a much greater financial impact than losing a customer paying **$20/month**.
 
----
-
-## 🔍 Analytical Approach & Execution
-
-### 1. Finding the Signal in the Data (BigQuery SQL)
-Before building visuals, I ran exploratory SQL queries in BigQuery to analyze raw subscriber trends. Three patterns emerged:
-* **Contract Type:** Month-to-month subscribers churned at significantly higher rates than 1-year and 2-year contract holders.
-* **Payment Method:** Electronic check users exhibited disproportionately high churn compared to automated credit card/bank transfer users.
-* **Spend Exposure:** High-paying users on flexible contracts represented the largest revenue leakage.
-
-To prepare the dataset efficiently and keep Power BI fast, I wrote custom SQL transformations:
-* Engineered binary flags for churned status (`is_churned`).
-* Isolated row-level revenue loss (`mrr_lost`).
-* Constructed a `CASE` statement bucketing users into **High ($\ge \$80$/mo)**, **Medium ($40–$79/mo)**, and **Low ($<\$40$/mo)** Financial Risk tiers.
-
-### 2. Dashboard Design & UX (Power BI)
-I structured the dashboard layout using an executive visual hierarchy:
-* **Top KPI Header:** Instant top-line visibility into **$139.13K Total MRR Lost**, **26.54% Churn Rate**, and **2K Churned Customers**.
-* **Middle Section:** Visual comparison charts comparing churn rates across contract types, payment channels, and financial risk tiers.
-* **Bottom Section:** A detailed, filterable Top 10 customer table displaying Customer IDs, contract types, monthly charges, and tenure so account management teams can execute targeted outreach.
+The goal of this project was to analyze customer churn from a **revenue perspective** instead of only looking at customer counts. Using SQL and Power BI, I explored which customer groups contributed the most to lost revenue and what actions could potentially reduce churn.
 
 ---
 
-## 💡 Strategic Recommendations for Retention
+# Key Business Findings
 
-1. **Incentivize Auto-Pay Migration:** Implement a small monthly incentive (e.g., $5/mo discount) to switch Month-to-Month Electronic Check users to automated Credit Card or Bank Transfer payment methods.
-2. **Targeted Contract Upgrades:** Prioritize outreach to Month-to-Month accounts paying $\ge \$80$/month, offering discounted 12-month upgrades before their peak churn tenure window.
+- **Total Lost Monthly Revenue:** **$139.13K**
+- **Overall Churn Rate:** **26.54%**
+- **Total Churned Customers:** **2,000**
+- **60.4% of lost MRR** came from customers classified as **High Financial Risk**.
+- Customers on **Month-to-Month contracts** paying through **Electronic Check** had churn rates above **50%**, making them the highest-risk segment.
 
 ---
 
-## 🛠️ Tech Stack & Tools
+# How I Built the Project
 
-* **Database / SQL:** Google BigQuery (*CTEs, conditional logic, feature engineering*)
-* **Business Intelligence:** Power BI Desktop (*Data modeling, DAX measures, UX design*)
-* **Version Control:** Git & GitHub
+### 1. Data Preparation (Google BigQuery)
 
-## 📁 Repository Contents
+I first explored the raw customer data using SQL to understand overall churn behavior.
 
-* `queries.sql` — Complete SQL script containing exploratory queries and the final data model.
-* `BigQuery_PowerBI_Customer_Retention_Analytics.pbix` — Power BI desktop report file.
-* `README.md` — Project documentation.
-* `Images` — `dashboard_preview.png` — High-resolution dashboard screenshot
+After exploring the dataset, I created several calculated fields to make reporting easier inside Power BI.
+
+These included:
+
+- `is_churned` flag
+- `mrr_lost`
+- Financial Risk classification (High / Medium / Low)
+
+The risk categories were created using customer monthly charges and contract type so the dashboard could focus on revenue exposure instead of customer count alone.
+
+---
+
+### 2. Dashboard Development (Power BI)
+
+After preparing the data, I connected the final dataset to Power BI and designed an interactive dashboard.
+
+The dashboard includes:
+
+- KPI cards for Lost MRR, Churn Rate and Churned Customers
+- Contract Type analysis
+- Payment Method analysis
+- Financial Risk segmentation
+- Customer detail table for follow-up analysis
+- Interactive slicers for easier filtering
+
+---
+
+# Business Recommendations
+
+Based on the analysis, I would recommend:
+
+### 1. Focus on High-Value Month-to-Month Customers
+
+Customers paying **$80 or more per month** on Month-to-Month contracts generated the majority of revenue loss. These customers should be prioritized for retention campaigns.
+
+### 2. Encourage Automatic Payments
+
+Electronic Check users showed significantly higher churn than customers using automatic payment methods.
+
+Small incentives for switching to AutoPay could potentially improve retention.
+
+---
+
+# Challenges
+
+One challenge was deciding how to classify customers into meaningful risk groups.
+
+Instead of simply separating churned and non-churned customers, I created a rule-based financial risk classification using monthly charges and contract type. This made the dashboard more useful from a business perspective because it highlights where the largest revenue losses occur.
+
+---
+
+# Future Improvements
+
+If I continue developing this project, I would like to:
+
+- Build a predictive churn model
+- Include customer support interaction data
+- Track retention campaign performance over time
+- Connect the dashboard to a live data source instead of static data
+
+---
+
+# Tools Used
+
+- **Google BigQuery**
+  - SQL
+  - CTEs
+  - CASE statements
+  - Data transformation
+
+- **Power BI**
+  - Data modeling
+  - DAX measures
+  - Interactive dashboard
+
+- **Git & GitHub**
+
+---
+
+# Repository Contents
+
+```
+📁 images/
+    └── revenueriskdashboard.png
+
+📄 queries.sql
+
+📄 BigQuery_PowerBI_Customer_Retention_Analytics.pbix
+
+📄 README.md
+```
+
+---
+
+Thank you for taking the time to review this project.
+
+Feedback is always welcome.
