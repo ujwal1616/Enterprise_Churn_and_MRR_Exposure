@@ -102,15 +102,12 @@ ORDER BY monthly_mrr_lost DESC;
 └── README.md
 ```
 
-🚀 Tech Stack Used
-Database & Querying: Google BigQuery (SQL, CTEs, Aggregations, Data Profiling)
+## 🚀 Tech Stack Used
 
-Business Intelligence: Power BI Desktop (DAX, Data Modeling, UX Design)
+* **Database & Querying:** Google BigQuery (SQL, CTEs, Aggregations, Data Profiling)
+* **Business Intelligence:** Power BI Desktop (DAX(basics), Data Modeling, UX Design)
+* **Version Control:** Git & GitHub
 
-Version Control: Git & GitHub
+---
 
-
-
-Thank you for taking the time to review this project.
-
-Feedback is always welcome.
+*Thank you for taking the time to review this project. Feedback is always welcome!*
